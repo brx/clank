@@ -1,0 +1,7 @@
+wordrx = [a-zA-Z]+
+
+dict  =   /usr/share/dict/ngerman
+
+translations = aä : oö : uü : UÜ : OÖ : AÄ :sß  
+
+maxwordlength= 20
