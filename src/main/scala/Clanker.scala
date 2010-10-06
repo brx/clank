@@ -9,14 +9,16 @@ import spellers.Speller
 
 object Clanker {
 
-  private def printAmb(lineNo: Int, columnNo: Int, outFile: Option[String]) {
+  private def printAmb(lineNo: Int, columnNo: Int,
+                       outFile: Option[String], spellings: List[String]) {
     val filePart = outFile match {
       case Some(name) => "[" + name + "]"
       case None       => ""
     }
     val posPart = "(" + lineNo + "," + columnNo + ")"
+    val ambPart = spellings.mkString("< ", " | ", " >")
 
-    Console.err.println("| Ambiguity" + filePart + posPart + " |")
+    Console.err.println("| Ambiguity" + filePart + posPart + " |  " + ambPart)
   }
 
   private def withClankerOut(outFile: Option[String])(block: => Unit) {
@@ -38,10 +40,9 @@ object Clanker {
         val lineNo = lineIdx + 1
 
         var pos = 0
-        var columnOffset = 0
 
         for (m <- rxWord.findAllIn(line).matchData) {
-          val columnNo = 1 + m.start + columnOffset
+          val columnNo = 1 + m.start
 
           val word = m.toString
           val spellings = if (disregard(word)) Nil else speller.spell(word)
@@ -52,10 +53,8 @@ object Clanker {
             case Nil          => print(word)
             case List(head)   => print(head)
             case _            => {
-              printAmb(lineNo, columnNo, outFile)
-              print(spellings.mkString("<", "|", ">"))
-
-              columnOffset += (spellings.length - 1) * word.length + 3
+              printAmb(lineNo, columnNo, outFile, spellings)
+              print(word)
             }
           }
 
