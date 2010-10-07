@@ -7,7 +7,11 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with ProguardProje
 
   override def proguardInJars = super.proguardInJars +++ buildLibraryJar
 
-  override val proguardOptions =
-    List("-keep class com.clank.Clank { public static void main(java.lang.String[]); }",
-         "-dontnote")
+  override val proguardDefaultArgs =
+    List(
+      "-dontwarn",
+      "-dontnote",
+      "-keepattributes SourceFile,LineNumberTable",
+      "-keep class com.clank.Clank { public static void main(java.lang.String[]); }",
+    )
 }
