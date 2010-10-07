@@ -27,7 +27,7 @@ object Clank {
       Clanker(Source.stdin.getLines(), outFile, speller, rxWord,
               (_.length > maxWordLength))
     } catch {
-      case ex: MissingOption =>
+      case ex: MissingOptionException =>
         Console.err.println(
           "Missing option '" + ex.option +"' in " + configPath + "!"
         )

@@ -17,14 +17,14 @@ class Config(opts: String*) {
 
     for (option <- options)
       if (!parsedOpts.contains(option))
-        throw new Config.MissingOption(option)
+        throw new Config.MissingOptionException(option)
 
     parsedOpts
   }
 }
 
 object Config {
-  class MissingOption(val option: String) extends Exception
+  class MissingOptionException(val option: String) extends Exception
 
   def optTr(str: String): Map[Char, Set[Char]] = {
     val trs = for {
