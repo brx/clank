@@ -16,7 +16,7 @@ class KeepCapitalsSpec extends WordSpec with Checkers {
 
     implicit val arbDumbStringWithKeepCapitals =
       mkSimpleDumbSpellerArb(new DumbSpeller(_) with KeepCapitals)
-    
+
     def normNiceStrings(niceStrings: List[NiceString]) =
       niceStrings map (_.capitalize) distinct
 
