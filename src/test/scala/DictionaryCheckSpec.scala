@@ -23,7 +23,7 @@ class DictionaryCheckSpec extends WordSpec with Checkers {
       for {
         dictSet <- arbitrary[Set[NiceString]]
         words <- listOf(oneOf(arbitrary[NiceString], oneOf(dictSet.toSeq)))
-      } yield new DictCheckSpeller(words.toList, new SetDictionary(dictSet))
+      } yield new DictCheckSpeller(words.distinct, new SetDictionary(dictSet))
     )
 
     "only return things contained in Dictionary" in {

@@ -42,5 +42,7 @@ object Helper {
     } yield Map(keys zip vals: _*))
 
   def mkSimpleDumbSpellerArb(constructor: List[NiceString] => DumbSpeller) =
-    Arbitrary(listOf(Arbitrary.arbitrary[NiceString]) map constructor)
+    Arbitrary(listOf(Arbitrary.arbitrary[NiceString]) map {
+      l => constructor(l.distinct)
+    })
 }
