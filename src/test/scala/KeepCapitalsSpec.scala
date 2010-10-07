@@ -16,17 +16,21 @@ class KeepCapitalsSpec extends WordSpec with Checkers {
 
     implicit val arbDumbStringWithKeepCapitals =
       mkSimpleDumbSpellerArb(new DumbSpeller(_) with KeepCapitals)
+    
+    def normNiceStrings(niceStrings: List[NiceString]) =
+      niceStrings map (_.capitalize) distinct
 
     "touch only the first letter of a result word" in {
       check((speller: DumbSpeller, word: NiceString) =>
-        speller.words zip speller.spell(word) forall {
+        normNiceStrings(speller.words) zip
+        normNiceStrings(speller.spell(word)) forall {
           case (a, b) => a.tail == b.tail
         })
     }
 
     "preserve capital state of capitalized input words" in {
       check((speller: DumbSpeller, word: NiceString) => word.head.isUpper ==> (
-        speller.words zip speller.spell(word) forall {
+        normNiceStrings(speller.words) zip speller.spell(word) forall {
           case (a, b) => b.head.isUpper && b.head == a.capitalize.head
         }
       ))
@@ -38,6 +42,13 @@ class KeepCapitalsSpec extends WordSpec with Checkers {
           case (a, b) => a.head == b.head
         }
       ))
+    }
+
+    "not generate duplicate spellings" in {
+      check((speller: DumbSpeller, word: NiceString) => {
+        val spellings = speller.spell(word)
+        spellings.length == spellings.distinct.length
+      })
     }
   }
 }
