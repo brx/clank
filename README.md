@@ -38,7 +38,7 @@ You will then find it at
 
 There should be standalone JARs of Clank in the download section. The
 latest version, I think, is
-[here](http://github.com/downloads/brx/clank/clank-0.8.5.jar)!
+[here](http://github.com/downloads/brx/clank/clank-0.8.6.jar)!
 
 ## Configuration ##
 
