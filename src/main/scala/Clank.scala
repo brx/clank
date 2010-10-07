@@ -32,6 +32,9 @@ object Clank {
           "Missing option '" + ex.option +"' in " + configPath + "!"
         )
         System.exit(1)
+      case ex: java.io.FileNotFoundException =>
+        Console.err.println("Failed to open " + ex.getMessage() + "!")
+        System.exit(2)
     }
   }
 }
