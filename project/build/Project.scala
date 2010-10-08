@@ -12,6 +12,6 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with ProguardProje
       "-dontwarn",
       "-dontnote",
       "-keepattributes SourceFile,LineNumberTable",
-      "-keep class com.clank.Clank { public static void main(java.lang.String[]); }",
+      "-keep class com.clank.Clank { public static void main(java.lang.String[]); }"
     )
 }
