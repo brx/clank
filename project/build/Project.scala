@@ -5,6 +5,8 @@ class Project(info: ProjectInfo) extends DefaultProject(info) with ProguardProje
   val scalatest = "org.scalatest" % "scalatest" % "1.2"
   val scalacheck = "org.scala-tools.testing" % "scalacheck_2.8.0" % "1.7"
 
+  override def compileOptions = super.compileOptions ++ Seq(Optimize)
+
   override def proguardInJars = super.proguardInJars +++ buildLibraryJar
 
   override val proguardDefaultArgs =
