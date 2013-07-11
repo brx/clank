@@ -109,6 +109,4 @@ The example configuration above is used.
 
 ## License ##
 
-Copyright (C) 2010 brx
-
 Distributed under the GPLv3. See COPYING.
